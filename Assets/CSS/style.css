@@ -1,3 +1,18 @@
 h1 {
     color: yellow;
 }
+
+#main {
+    width: 400px;
+    height: 100px;
+    background-color: gray;
+    text-align: center;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
