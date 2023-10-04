@@ -24,3 +24,9 @@ body {
         grid-template-columns: auto auto;
     }
 }
+
+@media (max-width: 640px) {
+    #main {
+        grid-template-columns: auto;
+    }
+}
