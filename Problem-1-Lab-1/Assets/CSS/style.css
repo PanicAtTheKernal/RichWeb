@@ -18,3 +18,9 @@ body {
     justify-content: center;
     text-align: center;
 }
+
+@media (max-width: 960px) {
+    #main {
+        grid-template-columns: auto auto;
+    }
+}
