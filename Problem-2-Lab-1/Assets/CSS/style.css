@@ -1,0 +1,64 @@
+:root {
+    --note-width: 220px;
+    --note-height: 220px;
+}
+
+h1 {
+    margin: 0px 1rem;
+    color: black;
+}
+
+button {
+    margin: 0px 1rem;
+    padding: 0px 1rem;
+}
+
+#main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: start;
+}
+
+#header {
+    background-color: brown;
+    width: inherit;
+    display: flex;
+    justify-content: start;
+    padding: 10px 0px;;
+}
+
+body {
+    margin: 0;
+}
+
+#noteArea {
+    flex-grow: 9;
+    max-width: inherit;
+    width: inherit;
+    background-color: beige;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, var(--note-width));
+    overflow: scroll;
+}
+
+.note {
+    border: 1px solid black;
+    margin: 10px;
+    padding: 10px;
+    max-width: var(--note-width);
+    max-height: var(--note-height);
+    height: var(--note-height);
+    background-color: aliceblue;
+    overflow-wrap: break-word;
+    overflow: scroll;
+}
+
+.noteHeader {
+    display: flex;
+    justify-content: center;
+}
