@@ -18,6 +18,15 @@ class Notes {
         this.renderNotes()
     }
 
+    editNote(content, colour, index) {
+        this.notes[index] = {text: content, colour: colour};
+        this.renderNotes();
+    }
+
+    getNote(index) {
+        return this.notes[index];
+    }
+
     renderNotes() {
         const noteArea = document.getElementById("noteArea");
 
@@ -30,6 +39,7 @@ class Notes {
             const deleteButton = document.createElement("button");
 
             editButton.textContent = "Edit";
+            editButton.setAttribute("onclick", `openNoteDialog("${index}")`);
             
             deleteButton.textContent = "Delete";
             
@@ -54,11 +64,26 @@ function submitNote() {
     const noteContent = document.forms["noteForm"]["noteContent"].value;
     const noteColour = document.forms["noteForm"]["noteColour"].value;
     const noteDialog = document.getElementById("noteFormDialog");
-    notes.addNote(noteContent, noteColour);
+    if(document.getElementById("noteEdit").value == "true") {
+        const noteIndex = parseInt(document.getElementById("noteIndex").value);
+        notes.editNote(noteContent, noteColour, noteIndex);
+    } else {
+        notes.addNote(noteContent, noteColour);
+    }
     noteDialog.close();
 }
 
-function openNoteDialog() {
+function openNoteDialog(noteIndex) {
+    if (noteIndex != undefined) {
+        document.getElementById("noteLabel").innerText = "Edit note:";
+        document.getElementById("noteContent").value = notes.getNote(noteIndex).text;
+        document.getElementById("noteEdit").value = "true";
+        document.getElementById("noteIndex").value = `${noteIndex}`;
+    } else {
+        document.getElementById("noteLabel").innerText = "Add note:";
+        document.getElementById("noteContent").value = "";
+        document.getElementById("noteEdit").value = "false";
+    }
     const noteDialog = document.getElementById("noteFormDialog");
     noteDialog.show();
 }
