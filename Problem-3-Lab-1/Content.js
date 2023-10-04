@@ -1,5 +1,34 @@
-function createVideoPlayer() {
+function getAllVideos() {
+    const allVideos = document.getElementsByTagName('video');
+    const divs = document.createElement('div');
+    const list = document.createElement('ul');
 
+    // for (let i = 0; i < allVideos.length; i++) {
+    //     const listItem = document.createElement('li');
+    //     const button = document.createElement('button');
+
+
+    //     listItem.
+    // }
+}
+
+function showVideo(videoLink) {
+
+}
+
+function createVideoPlayer() {
+    const videoPlayer = document.createElement('div');
+
+    videoPlayer.id = "videoPlayer";
+    videoPlayer.style.position = "fixed";
+    videoPlayer.style.right = "10px";
+    videoPlayer.style.top = "10px";
+    videoPlayer.style.margin = "0px";
+    videoPlayer.style.backgroundColor = "White";
+    videoPlayer.style.width = "100px";
+    videoPlayer.style.height = "100px";
+
+    return videoPlayer;
 }
 
 function createShowButton() {
@@ -11,10 +40,12 @@ function createShowButton() {
     showButton.innerText = "Show";
     showButton.onclick = () => {
         const buttonRef = document.getElementById("ShowButton");
-        if(buttonRef.getAttribute("show") == "false") {
-            showButton.setAttribute("show", "true");
-        } else {
+        if(buttonRef.getAttribute("show") == "true") {
+            document.getElementById("videoPlayer").style.display = "none";
             showButton.setAttribute("show", "false");
+        } else {
+            document.getElementById("videoPlayer").style.display = "block";
+            showButton.setAttribute("show", "true");
         }
     }
 
@@ -31,7 +62,8 @@ function createShowButton() {
 
 function extension() {
     const currentBody = document.getElementsByTagName('body')[0];
-    currentBody.appendChild(Dialog);
+    currentBody.appendChild(createVideoPlayer())
+    currentBody.appendChild(createShowButton());
 }
 
 extension();
