@@ -31,8 +31,34 @@ button {
     padding: 10px 0px;;
 }
 
+#heading {
+    flex-grow: 3;
+}
+
+#noteFormDialog[open] {
+    display: flex;
+    padding: 10px;
+    background-color: grey;
+    height: max-content;
+    align-items: center;
+    justify-content: center;
+}
+
+#noteForm {
+    height: fit-content;
+    width: fit-content;
+}
+
+#noteForm > * {
+    margin: 4px 0px;
+}
+
 body {
     margin: 0;
+}
+
+textarea {
+    resize: none;
 }
 
 #noteArea {
@@ -44,6 +70,12 @@ body {
     gap: 20px;
     grid-template-columns: repeat(auto-fill, var(--note-width));
     overflow: scroll;
+}
+
+.noteContainer {
+    display: flex;
+    justify-content: baseline;
+    align-items: start;
 }
 
 .note {

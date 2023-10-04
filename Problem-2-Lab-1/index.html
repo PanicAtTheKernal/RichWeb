@@ -8,6 +8,21 @@
 	</head>
 	<body>
 		<div id="main">
+			<dialog id="noteFormDialog">
+				<form id="noteForm" name="noteForm" method="dialog">
+					<label for="noteContent" id="noteLabel">Add note:</label>
+					<br>
+					<textarea id="noteContent" name="noteContent" rows="5" cols="40" required></textarea>
+					<br>
+					<div id="colourSelection">
+					</div>
+					<button onclick="submitNote()">Submit</button>
+				</form>
+			</dialog>
+			<div id="header"> 
+				<h1 id="heading">Simple Notes</h1>
+				<button onclick="openNoteDialog()">Add note</button>
+			</div>
 			<div id="noteArea">
 			</div>
 		</div>
