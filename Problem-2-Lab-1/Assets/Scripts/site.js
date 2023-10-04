@@ -23,6 +23,11 @@ class Notes {
         this.renderNotes();
     }
 
+    deleteNote(index) {
+        this.notes.splice(index, 1);
+        this.renderNotes();
+    }
+
     getNote(index) {
         return this.notes[index];
     }
@@ -42,6 +47,7 @@ class Notes {
             editButton.setAttribute("onclick", `openNoteDialog("${index}")`);
             
             deleteButton.textContent = "Delete";
+            deleteButton.setAttribute("onclick", `notes.deleteNote(${index})`);
             
             noteHeading.className = "noteHeader";
             noteHeading.appendChild(editButton);
