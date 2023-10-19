@@ -1,0 +1,64 @@
+#main {
+    margin: 10px 30px;
+    font-family: sans-serif;
+}
+
+#usernameSearchDiv {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+#usernameSearchDiv > input {
+    flex-grow: 4;
+    height: 2rem;
+}
+
+#usernameSearchDiv > button {
+    border-radius: 10px;
+    padding: 4px 40px;
+}
+
+#userProfileImg {
+    margin: 15px;
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 15px;
+    height: 300px;
+}
+
+#userDetails {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 50px;
+}
+
+#userProfileContent {
+    justify-content: end;
+}
+
+#userReposContent {
+    overflow: scroll;
+    display: block;
+}
+
+.border {
+    border: 1px solid black;
+}
+
+.userCol {
+    display: flex;
+    flex-direction: column;
+    max-height: 600px;
+    height: 600px;
+}
+
+.userValueDiv {
+    display: flex;
+    flex-direction: row;
+}
+
+.userValueDiv > p {
+    padding-left: 15px;
+}
+
