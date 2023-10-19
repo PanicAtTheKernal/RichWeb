@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="Assets/CSS/style.css">
+		<script src="Assets/Scripts/site.js" defer></script>
+		<title>Web page</title>
+	</head>
+	<body>
+		<div id="main">
+			<div id="title">
+				<h1>Phone directory</h1>
+			</div>
+			<div id="newPhoneFormDiv">
+				<form id="newPhoneForm" name="newPhoneForm" method="dialog">
+					<input type="text" id="cname" name="cname" placeholder="Contact Name" required>
+					<input type="tel" id="phone" name="phone" placeholder="Moblie Number" required>
+					<input type="email" id="email" name="email" placeholder="Email" required>
+					<button onclick="submitNewNumber()">Add Contact</button>
+				</form>
+			</div>
+			<div id="phoneSearch">
+				<p>Search contact by Moblie No:</p>
+				<input type="tel" id="numberSearch" name="numberSearch" oninput="search()">
+			</div>
+			<div id="phoneDirectoryTableDiv">
+				<table id="phoneDirectoryTable">
+					<tr id="phoneDirectoryTableHeader">
+						<th>Name</th>
+						<th>Moblie</th>
+						<th>Email</th>
+					</tr>
+				</table>
+			</div>
+			<p id="text">Hello world</p>
+		</div>
+	</body>
+</html>
