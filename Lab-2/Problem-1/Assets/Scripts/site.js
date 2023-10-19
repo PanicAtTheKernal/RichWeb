@@ -34,7 +34,6 @@ class NumberDirectory {
 
 
         numbers.forEach((number) => {
-            console.log(`${number['phone']}`);
             const newTableRow = document.createElement('tr');
             const nameTableValue = document.createElement('td');
             const phoneTableValue = document.createElement('td');
@@ -80,16 +79,39 @@ function submitNewNumber() {
     const contactName = document.forms["newPhoneForm"]["cname"].value;
     const phone = document.forms["newPhoneForm"]["phone"].value;
     const email = document.forms["newPhoneForm"]["email"].value;
+    const errorMessage = document.getElementById("error");
+    //Regex that only accepts letters and spaces
+    const contactNameRegex = new RegExp("^[A-Za-z ]*$");
+    const phoneRegex = new RegExp("^[0-9]+$");
+    const emailRegex = new RegExp("^[A-Za-z]+[@]+[A-Za-z]+[.]+[A-Za-z]+$");
 
+    if (!contactName || !phone || !email) {
+        errorMessage.innerText = "All fields are required";
+        return;
+    } 
+
+    if (contactNameRegex.test(contactName) === false || contactName.length > 20) {
+        errorMessage.innerText = "Name can only contain letters and spaces and needs to be less than 20 characters";
+        return;
+    }
+
+    if (phoneRegex.test(phone) === false || phone.length != 10) {
+        errorMessage.innerText = "Phone can only contain numbers and is 10 digits long";
+        return;
+    }
+
+    if (emailRegex.test(email) === false || email.length > 40) {
+        errorMessage.innerText = "Email is invalid and needs to be less than 40 characters";
+        return;
+    }
+
+    //reset values
     document.forms["newPhoneForm"]["cname"].value = "";
     document.forms["newPhoneForm"]["phone"].value = "";
     document.forms["newPhoneForm"]["email"].value = "";
 
-    if (!contactName || !phone || !email) {
-        throw new Error("Empty values");
-    } else {
-        numDir.addNumber({name: contactName, phone: phone, email: email});
-    }
+    errorMessage.innerText = "";
+    numDir.addNumber({name: contactName, phone: phone, email: email});
 }
 
 function search() {

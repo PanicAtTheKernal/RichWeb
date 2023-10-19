@@ -33,11 +33,22 @@ tr:nth-child(odd) {
     background-color: #f2f2f2;
 }
 
-#newPhoneFormDiv {
+#newPhoneDiv {
     border: 3px solid #3d7685;
     padding: 30px 10px;
     background-color: #a7d4de;
     border-radius: 10px;
+}
+
+#errorDiv {
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+#error {
+    color: red;
 }
 
 #noResult {
