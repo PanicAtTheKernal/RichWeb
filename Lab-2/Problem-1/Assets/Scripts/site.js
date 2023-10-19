@@ -1,6 +1,7 @@
 class NumberDirectory {
     numbers = [];
     numberDirectoryTableHeader;
+    sortAsc = false;
 
     constructor(initialNumbers = []) {
         this.numbers = initialNumbers;
@@ -8,7 +9,7 @@ class NumberDirectory {
         this.renderNumbers();
     }
 
-    renderNumbers(customNumbers, hasResults) {
+    renderNumbers(customNumbers) {
         const numberDirectoryTable = document.getElementById('phoneDirectoryTable');
         let numbers = this.numbers;
         
@@ -30,9 +31,7 @@ class NumberDirectory {
         //Clear the table
         numberDirectoryTable.appendChild(this.numberDirectoryTableHeader);
 
-
-
-
+        //Render the table
         numbers.forEach((number) => {
             const newTableRow = document.createElement('tr');
             const nameTableValue = document.createElement('td');
@@ -67,8 +66,39 @@ class NumberDirectory {
             const phoneNumber = number['phone'];
             if (phoneNumber.startsWith(`${searchNumber}`)) newNumbers.push(number);
         });
-        const hasResults = newNumbers.length > 0;
-        this.renderNumbers(newNumbers, hasResults);
+        this.renderNumbers(newNumbers);
+    }
+
+    sortNames() {
+        let names = [];
+        let namesMap = new Map();
+        let sortedNumbers = [];
+
+        // Get an array of all the names
+        this.numbers.forEach((number, index) => {
+            const name = number['name'];
+            names.push(name);
+            //Create index map for quick lookup later
+            namesMap[name] = index;
+        });
+
+        //Sort the names
+        if (this.sortAsc) {
+            names.sort();
+            this.sortAsc = false;
+        } else {
+            names.reverse();
+            this.sortAsc = true;
+        } 
+
+        //Go through the sorted names and recreate the numbers list
+        names.forEach((nameValue) => {
+            const objectIndex = namesMap[nameValue];
+            sortedNumbers.push(this.numbers[objectIndex]);
+        });
+
+        this.numbers = sortedNumbers;
+        this.renderNumbers();
     }
 }
 
@@ -118,4 +148,8 @@ function search() {
     const searchValue = document.getElementById("numberSearch").value;
 
     numDir.filterNumbers(searchValue);
+}
+
+function sortNames() {
+    numDir.sortNames();
 }
