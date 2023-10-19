@@ -47,6 +47,15 @@ class NumberDirectory {
     getNumbers() {
         return this.numbers;
     }
+
+    filterNumbers(searchNumber) {
+        let newNumbers = [];
+        this.numbers.forEach((number) => {
+            const phoneNumber = number['phone'];
+            if (phoneNumber.startsWith(`${searchNumber}`)) newNumbers.push(number);
+        });
+        this.renderNumbers(newNumbers);
+    }
 }
 
 
@@ -69,6 +78,8 @@ function submitNewNumber() {
 }
 
 function search() {
+    const searchValue = document.getElementById("numberSearch").value;
+    numDir.filterNumbers(searchValue);
 }
 
 let state = false;
