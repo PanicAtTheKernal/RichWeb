@@ -1,23 +1,37 @@
 class NumberDirectory {
     numbers = [];
+    numberDirectoryTableHeader;
 
     constructor(initialNumbers = []) {
         this.numbers = initialNumbers;
+        this.numberDirectoryTableHeader = document.getElementById('phoneDirectoryTableHeader');
         this.renderNumbers();
     }
 
-    renderNumbers(customNubmers) {
+    renderNumbers(customNumbers, hasResults) {
         const numberDirectoryTable = document.getElementById('phoneDirectoryTable');
-        const numberDirectoryTableHeader = document.getElementById('phoneDirectoryTableHeader');
         let numbers = this.numbers;
+        
+        if (customNumbers !== undefined) {
+            numbers = customNumbers;
+        }
+        
+        numberDirectoryTable.innerHTML = "";
+
+        //Print error if number doesn't exist
+        if(numbers.length === 0) {
+            const errorDiv = document.createElement("div");
+            errorDiv.id = "noResult";
+            errorDiv.innerText = "No results found";
+            numberDirectoryTable.appendChild(errorDiv);
+            return;
+        }
 
         //Clear the table
-        numberDirectoryTable.innerHTML = "";
-        numberDirectoryTable.appendChild(numberDirectoryTableHeader);
+        numberDirectoryTable.appendChild(this.numberDirectoryTableHeader);
 
-        if(customNubmers !== undefined) {
-            numbers = customNubmers;
-        }
+
+
 
         numbers.forEach((number) => {
             console.log(`${number['phone']}`);
@@ -54,7 +68,8 @@ class NumberDirectory {
             const phoneNumber = number['phone'];
             if (phoneNumber.startsWith(`${searchNumber}`)) newNumbers.push(number);
         });
-        this.renderNumbers(newNumbers);
+        const hasResults = newNumbers.length > 0;
+        this.renderNumbers(newNumbers, hasResults);
     }
 }
 
@@ -79,11 +94,6 @@ function submitNewNumber() {
 
 function search() {
     const searchValue = document.getElementById("numberSearch").value;
-    numDir.filterNumbers(searchValue);
-}
 
-let state = false;
-function buttonClick() {
-    document.getElementById("text").style.color = (state) ? "blue" : "black";
-    state = !state;
+    numDir.filterNumbers(searchValue);
 }
