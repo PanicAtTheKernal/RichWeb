@@ -9,6 +9,20 @@
     gap: 20px;
 }
 
+#errorDialog {
+    top: 30%;
+    color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#userImage {
+    height: 250px;
+    object-fit: scale-down;
+}
+
 #usernameSearchDiv > input {
     flex-grow: 4;
     height: 2rem;
@@ -24,7 +38,11 @@
     border: 1px solid black;
     border-radius: 15px;
     padding: 15px;
-    height: 300px;
+    flex-grow: 2;
+    display: flex;
+    max-height: fit-content;
+    justify-content: center;
+    align-items: center;
 }
 
 #userDetails {

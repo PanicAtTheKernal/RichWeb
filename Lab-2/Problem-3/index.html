@@ -8,9 +8,15 @@
 	</head>
 	<body>
 		<div id="main">
+			<dialog id="dialog">
+				<div id="errorDialog">
+					<p id="errorMessage">ERROR MESSAGE</p>
+					<button onclick="closeDialog()">Close</button>
+				</div>
+			</dialog>
 			<div id="usernameSearchDiv">
-				<input type="text" id="username" name="username">
-				<button onclick="">Search</button>
+				<input type="text" id="usernameSearch" name="usernameSearch">
+				<button onclick="fetchUserData()">Search</button>
 			</div>
 			<div id="userDetails">
 				<div id="userProfile">
