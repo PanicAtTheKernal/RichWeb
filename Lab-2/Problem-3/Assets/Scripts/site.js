@@ -6,9 +6,10 @@ async function fetchUserData() {
         showDialog("User not found");
         return;
     }
-    console.log(body);
+    console.log(response);
 
     fetchUserImage(body["avatar_url"]);
+    createRepoObjects(body["repos_url"]);
     document.getElementById("userNameValue").innerText = body["name"];
     document.getElementById("userUsernameValue").innerText = body["login"];
     document.getElementById("userEmailValue").innerText = body["email"] ?? "Private email";
@@ -34,6 +35,37 @@ function fetchUserImage(url) {
     document.getElementById("userImage").src = url;
 }
 
-function createRepoObject() {
+async function createRepoObjects(url) {
+    const response = await fetch(url);
+    const repos = await response.json();
+    const reposDiv = document.getElementById("userReposContent");
+    reposDiv.innerHTML = "";
 
+    console.log(repos);
+    repos.forEach(repo => {
+        createRepoObject(repo, reposDiv);
+    });
+}
+
+function createRepoObject(repo, reposDiv) {
+    const repoDiv = document.createElement("div");
+
+    repoDiv.className = "repoItem border";
+    repoDiv.appendChild(createRepoValue(repo["name"], "name"));
+    repoDiv.appendChild(createRepoValue(repo["description"], "description"));
+    reposDiv.appendChild(repoDiv);
+}
+
+function createRepoValue(value, title) {
+    const repoValueDiv = document.createElement("div");
+    const titleValue = document.createElement("p");
+    const valueValue = document.createElement("p");
+
+    titleValue.innerText = `${title}:`;
+    valueValue.innerText = value ?? `No ${title} found`;
+
+    repoValueDiv.className = "userValueDiv";
+    repoValueDiv.appendChild(titleValue);
+    repoValueDiv.appendChild(valueValue);
+    return repoValueDiv;
 }
