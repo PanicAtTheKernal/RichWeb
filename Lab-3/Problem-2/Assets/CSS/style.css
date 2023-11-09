@@ -16,6 +16,8 @@ body {
     display: flex;
     justify-content: center;
     align-content: center;
+    font-family: sans-serif;
+    font-weight: lighter;
 }
 
 .centerRow {
@@ -30,15 +32,6 @@ body {
     justify-content: center;
     align-content: center;
     flex-direction: column; 
-}
-
-#setCountdownDiv {
-    padding: var(--countdown-font-size);
-}
-
-#upperSetCountdownDiv {
-    font-size: var(--countdown-font-size);
-    margin: 0;
 }
 
 .setTimeInput {
@@ -64,6 +57,21 @@ body {
 .alignSelfBottom {
     align-self: flex-end;
     justify-self: baseline;
+}
+
+#setCountdownDiv {
+    padding: calc(var(--countdown-font-size) * 0.5) 0;
+}
+
+#upperSetCountdownDiv {
+    font-size: var(--countdown-font-size);
+    margin: 0;
+}
+
+#countdownDiv {
+    padding: 0 10px;
+    background-color: lightgray;
+    font-size: calc(var(--countdown-font-size) * 3);
 }
 
 button {
