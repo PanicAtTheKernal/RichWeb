@@ -1,5 +1,5 @@
 :root {
-    --countdown-font-size: 2rem;
+    --countdown-font-size: 3rem;
     --countdown-offset: 0.5rem;
     --seconds-size: 0.6;
 }
@@ -42,8 +42,8 @@ body {
 }
 
 .timeSeperator {
-    font-size: calc(var(--countdown-font-size) * 1.4);
-    margin: 0;
+    font-size: calc(var(--countdown-font-size) * 1.0);
+    margin: 0 2px;
 }
 
 .secondsSize {
@@ -60,7 +60,12 @@ body {
 }
 
 #setCountdownDiv {
-    padding: calc(var(--countdown-font-size) * 0.5) 0;
+    padding: calc(var(--countdown-font-size) * 0.5) 10px;
+}
+
+#countdownForm {
+    padding: 10px;
+    flex-shrink: 1;
 }
 
 #upperSetCountdownDiv {
@@ -68,16 +73,30 @@ body {
     margin: 0;
 }
 
+#lowerSetCountdownDiv {
+    flex-grow: 2;
+}
+
 #countdownDiv {
     padding: 0 10px;
     background-color: lightgray;
-    font-size: calc(var(--countdown-font-size) * 3);
+    font-size: calc(var(--countdown-font-size) * 2);
+    min-width: calc(var(--countdown-font-size) * 8);
 }
 
 button {
-    margin: 5px 0;
+    margin: 5px 80px;
     flex-grow: 1;
     border: 0;
     border-radius: 2px;
-    padding: 2px 15px;
+    font-weight: bold;
+    text-align: center;
+    flex-grow: 1;
+}
+
+input {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 3px;
 }

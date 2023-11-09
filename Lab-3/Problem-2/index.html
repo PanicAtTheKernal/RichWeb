@@ -9,8 +9,8 @@
 	</head>
 	<body>
 		<div id="main">
-			<div id="setCountdownDiv">
-				<form class="centerCol">
+			<div id="setCountdownDiv" class="centerCol">
+				<form id="countdownForm" name="countdownForm" class="centerCol">
 					<div id="upperSetCountdownDiv" class="centerRow">
 						<input type="text" id="hours" name="hours" placeholder="h" class="setTimeInput alignSelfBottom">
 						<p class="timeSeperator alignSelfBottom">:</p>
@@ -18,13 +18,13 @@
 						<p class="timeSeperator secondsSize alignSelfBottom">:</p>
 						<input type="text" id="seconds" name="seconds" placeholder="s" class="setTimeInput secondsSize alignSelfBottom secondsSizeInput">
 					</div>
-					<div id="lowerSetCountdownDiv">
-						<button>START COUNTDOWN</button>
-					</div>
 				</form>
+				<div id="lowerSetCountdownDiv" class="centerCol">
+					<button id="startCountdown">START COUNTDOWN</button>
+				</div>
 			</div>
 			<div id="countdownDiv">
-				<div id="countdown">24:60:60</div>
+				<div id="countdown"></div>
 			</div>
 		</div>
 	</body>
