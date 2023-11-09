@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="Assets/CSS/style.css">
+		<script src="https://unpkg.com/rxjs@%5E7/dist/bundles/rxjs.umd.min.js"></script>
+		<script src="Assets/Scripts/site.js" defer></script>
+		<title>Web page</title>
+	</head>
+	<body>
+		<div id="main">
+			<dialog id="noteFormDialog">
+				<form id="noteForm" name="noteForm" method="dialog">
+					<label for="noteContent" id="noteLabel">Add note:</label>
+					<br>
+					<textarea id="noteContent" name="noteContent" rows="5" cols="40" required></textarea>
+					<br>
+					<input id="noteEdit" name="noteEdit" type="hidden" value="false"/>
+					<input id="noteIndex" name="noteIndex" type="hidden" value="0"/>
+					<div id="colourSelection">
+					</div>
+					<button id="submitButton">Submit</button>
+				</form>
+			</dialog>
+			<div id="header"> 
+				<h1 id="heading">Simple Notes</h1>
+				<button id="addButton">Add note</button>
+			</div>
+			<div id="noteArea">
+			</div>
+		</div>
+	</body>
+</html>
