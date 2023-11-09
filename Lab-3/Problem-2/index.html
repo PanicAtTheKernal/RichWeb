@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="Assets/CSS/style.css">
+		<script src="https://unpkg.com/rxjs@%5E7/dist/bundles/rxjs.umd.min.js"></script>
+		<script src="Assets/Scripts/site.js" defer></script>
+		<title>Web page</title>
+	</head>
+	<body>
+		<div id="main">
+			<div id="setCountdownDiv">
+				<form class="centerCol">
+					<div id="upperSetCountdownDiv" class="centerRow">
+						<input type="text" id="hours" name="hours" placeholder="h" class="setTimeInput alignSelfBottom">
+						<p class="timeSeperator alignSelfBottom">:</p>
+						<input type="text" id="minutes" name="minutes" placeholder="m" class="setTimeInput alignSelfBottom">
+						<p class="timeSeperator secondsSize alignSelfBottom">:</p>
+						<input type="text" id="seconds" name="seconds" placeholder="s" class="setTimeInput secondsSize alignSelfBottom secondsSizeInput">
+					</div>
+					<div id="lowerSetCountdownDiv">
+						<button>START COUNTDOWN</button>
+					</div>
+				</form>
+			</div>
+			<div id="countdownDiv">
+
+			</div>
+		</div>
+	</body>
+</html>
