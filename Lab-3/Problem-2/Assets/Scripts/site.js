@@ -16,15 +16,19 @@ function startCountdown() {
         totalSeconds += hours * 3600;
     }
 
-    const timeInterval = rxjs.interval(1000);
-    const timeObservable = timeInterval.pipe(rxjs.take(totalSeconds+1));
-
-    timeObservable.subscribe({
+    const timeInterval = rxjs.interval(1000).pipe(
+        rxjs.take(totalSeconds+1)
+    );
+timeInterval.subscribe({
         next(value) {
         console.log(value);
         displayTime(totalSeconds);
         totalSeconds -= 1;
-    }})
+    },
+    complete() {
+        console.log("Timer is done!")
+    }
+})
 }
 
 function displayTime(totalSeconds) {
