@@ -1,29 +1,37 @@
-// eslint-disable-next-line no-undef
-const rxjsM = rxjs;
-
-class Notes {
+class Note {
     content = "";
     parent = null;
     deleteSubject;
+    deleteSubscription = null;
+    notes;
 
     constructor(content, parent) {
         this.content = content;
+        this.deleteSubject = new rxjs.Subject;
         this.parent = parent;
-        this.deleteSubject = new rxjsM.Subject;
+        if (parent != null) {
+            this.deleteSubscription = this.parent.deleteSubject.subscribe(() => {
+                console.log("Child note " + this.content + " has been notified of deletion");
+                this.delete();
+            })
+        }
+    }
+
+    delete() {
+        this.deleteSubject.next();
+        if (this.deleteSubscription != null) {
+            this.deleteSubscription.unsubscribe();
+        }
+        console.log("Note " + this.content + " has been deleted");
     }
 }
 
-const noteSubject = new rxjsM.Subject();
 
-noteSubject.pipe(
-    rxjsM.scan((notes, newNote) => [...notes, newNote], [])
-).subscribe((value) => console.log(value));
+const note1 = new Note("Test", null);
+const note2 = new Note("Test2", note1);
+const note3 = new Note("Test3", note1);
+const note4 = new Note("Test4", note2);
+const note5 = new Note("Test5", note4);
 
-const note1 = new Notes("Test", null, noteSubject);
-const note2 = new Notes("Test2", note1, noteSubject);
-const note3 = new Notes("Test3", null, noteSubject);
 
-noteSubject.next(note1);
-noteSubject.next(note2);
-noteSubject.next(note3);
-
+note1.delete();
