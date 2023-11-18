@@ -1,3 +1,5 @@
+import * as rxjs from 'rxjs';
+
 function startCountdown() {
     const hours = parseInt(document.forms["countdownForm"]["hours"].value);
     const minutes = parseInt(document.forms["countdownForm"]["minutes"].value);
