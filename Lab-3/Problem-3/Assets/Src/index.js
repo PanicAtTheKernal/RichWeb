@@ -15,6 +15,7 @@ class Note {
         this.colour = colour;
         this.deleteSubject = new rxjs.Subject;
         this.parent = parent;
+        console.log(parent)
         if (parent != null) {
             this.deleteSubscription = this.parent.deleteSubject.subscribe(() => {
                 console.log("Child note \"" + this.text + "\" has been notified of deletion");
@@ -42,7 +43,12 @@ class Notes {
     }
 
     addNote(content, colour, parent) {
-        this.notes.push(new Note(content, colour, parent, this));
+        if (parent == "") {
+            this.notes.push(new Note(content, colour, null, this));
+        } else {
+            const noteObj = this.notes.find(note => parent == note);
+            this.notes.push(new Note(content, colour, noteObj, this))
+        }
         this.renderNotes()
     }
 
@@ -129,7 +135,7 @@ function openNoteDialog(noteIndex) {
 
 function createParentSelection() {
     const parentSelection = document.getElementById("parentSelection");
-    const parents = notes.notes;
+    const parents = notes.notes.map(notes => notes);
     const title = document.createElement("label")
     title.textContent = "Select parent:";
 
@@ -137,6 +143,7 @@ function createParentSelection() {
     parentSelection.appendChild(title);
     parentSelection.appendChild(document.createElement("br"));
 
+    parents.unshift(null);
     parents.forEach((key, index) => {
         const radioButton = document.createElement("input");
         const label = document.createElement("label");
@@ -148,7 +155,7 @@ function createParentSelection() {
         if (index === 0) radioButton.checked = true;
 
         label.setAttribute("for", key);
-        label.textContent = `Note: ${key.text}`;
+        label.textContent = `Note: ${(key == null)? "Null": key.text}`;
 
         parentSelection.appendChild(radioButton);
         parentSelection.appendChild(label);
@@ -188,41 +195,3 @@ const addButton = document.getElementById("addButton");
 const submitButton = document.getElementById("submitButton");
 rxjs.fromEvent(addButton, "click").subscribe(() => openNoteDialog());
 rxjs.fromEvent(submitButton, "click").subscribe(() => submitNote());
-
-// class Note {
-//     content = "";
-//     parent = null;
-//     deleteSubject;
-//     deleteSubscription = null;
-//     notes;
-
-//     constructor(content, parent) {
-//         this.content = content;
-//         this.deleteSubject = new rxjs.Subject;
-//         this.parent = parent;
-//         if (parent != null) {
-//             this.deleteSubscription = this.parent.deleteSubject.subscribe(() => {
-//                 console.log("Child note " + this.content + " has been notified of deletion");
-//                 this.delete();
-//             })
-//         }
-//     }
-
-//     delete() {
-//         this.deleteSubject.next();
-//         if (this.deleteSubscription != null) {
-//             this.deleteSubscription.unsubscribe();
-//         }
-//         console.log("Note " + this.content + " has been deleted");
-//     }
-// }
-
-
-// const note1 = new Note("Test", null);
-// const note2 = new Note("Test2", note1);
-// const note3 = new Note("Test3", note1);
-// const note4 = new Note("Test4", note2);
-// const note5 = new Note("Test5", note4);
-
-
-// note1.delete();
