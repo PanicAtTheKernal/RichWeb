@@ -31,7 +31,7 @@ class Note {
         }
         const noteIndex = this.notes.notes.indexOf(this);
         this.notes.notes.splice(noteIndex, 1)
-        console.log("Note " + this.content + " has been deleted");
+        console.log("Note \"" + this.text + "\" has been deleted");
     }
 }
 
