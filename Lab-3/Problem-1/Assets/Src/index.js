@@ -1,3 +1,5 @@
+import * as rxjs from 'rxjs';
+
 const colours = {
     red: [0, 100, 65],
     blue: [216, 100, 65],
