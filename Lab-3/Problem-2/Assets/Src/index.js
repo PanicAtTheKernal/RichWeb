@@ -40,10 +40,15 @@ function displayTime(totalSeconds) {
     const minutesRem = Math.floor((totalSeconds / 60));
     totalSeconds -= minutesRem * 60;
     const secondsRem = totalSeconds;
+
+    console.log(hoursRem);
+    console.log(minutesRem);
+    console.log(secondsRem);
+
     const secondsStr = (secondsRem < 10) ? `0${secondsRem}` : secondsRem;
     let timeStr = `${secondsStr}`;
     
-    if (minutesRem != 0) {
+    if (minutesRem != 0 || hoursRem != 0) {
         const minutesStr = (minutesRem < 10) ? `0${minutesRem}` : minutesRem;
         timeStr = minutesStr + ":" + timeStr;
     }
