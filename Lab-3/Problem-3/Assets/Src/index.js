@@ -90,7 +90,13 @@ class Notes {
             
             newNote.className = "note";
             newNote.style = `background-color: hsl(${colours[note.colour][0]}, ${colours[note.colour][1]}%, ${colours[note.colour][2]}%)`;
+            if (note.parent != null) {
+                newNote.style = `background-color: hsl(${colours[note.parent.colour][0]}, ${colours[note.parent.colour][1]}%, ${colours[note.parent.colour][2]}%)`;  
+            }
             newNote.appendChild(noteHeading);
+            const noteParent = document.createElement("div");
+            noteParent.innerText = "Child of: " + ((note.parent != null) ? note.parent.text: "Null");
+            newNote.appendChild(noteParent);
             newNote.appendChild(document.createTextNode(note.text));
             
             noteArea.appendChild(newNote);
