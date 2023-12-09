@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import colours from '../../colours';
 import "./Note.css"
 
-type NoteProps = {
+export type NoteProps = {
     text: string,
     colour: string,
 }

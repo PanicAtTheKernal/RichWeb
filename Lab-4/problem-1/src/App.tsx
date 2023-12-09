@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import Header from './components/Header/Header';
 import NoteArea from './components/NoteArea';
-import Note from './components/Note/Note';
+import {NoteProps} from './components/Note/Note';
 import { Subject } from 'rxjs';
 
 function App() {
-  const itemObservable = useRef(new Subject<React.JSX.Element>());
+  const itemObservable = useRef(new Subject<NoteProps>());
 
   return (
     <div className="App" id="main">
