@@ -1,15 +1,17 @@
 import React, { useState, useRef } from 'react';
 import Header from './components/Header/Header';
-import NoteArea from './components/NoteArea';
-import {NoteProps} from './components/Note/Note';
+import NoteArea, { NoteValues } from './components/NoteArea';
 import { Subject } from 'rxjs';
+import NewNoteForm from './components/NewNoteForm/NewNoteForm';
 
 function App() {
-  const itemObservable = useRef(new Subject<NoteProps>());
+  const itemObservable = useRef(new Subject<NoteValues>());
+  const openFormSubject = useRef(new Subject<boolean>());
 
   return (
     <div className="App" id="main">
-      <Header></Header>
+      <NewNoteForm itemObservable={itemObservable.current} openFormSubject={openFormSubject.current}></NewNoteForm>
+      <Header openFormSubject={openFormSubject.current}></Header>
       <NoteArea newItemObservable={itemObservable.current}></NoteArea>
     </div>
   );

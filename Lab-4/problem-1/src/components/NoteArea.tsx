@@ -20,7 +20,7 @@ export type NoteRequest = {
 }
 
 type NoteAreaProps = {
-    newItemObservable: Subject<NoteProps>
+    newItemObservable: Subject<NoteValues>
 } 
 
 function NoteArea(props: NoteAreaProps) {
@@ -41,7 +41,7 @@ function NoteArea(props: NoteAreaProps) {
     })
 
     const newNoteSubscriber = useRef(props.newItemObservable.subscribe({
-        next (newNote: NoteProps) {
+        next (newNote: NoteValues) {
             setNotes((currentNotes) => {
                 return {
                     ...currentNotes,

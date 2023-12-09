@@ -1,0 +1,22 @@
+.hidden {
+    display: none;
+    visibility: hidden;
+}
+
+#noteFormDialog[open] {
+    display: flex;
+    padding: 10px;
+    background-color: grey;
+    height: max-content;
+    align-items: center;
+    justify-content: center;
+}
+
+#noteForm {
+    height: fit-content;
+    width: fit-content;
+}
+
+#noteForm > * {
+    margin: 4px 0px;
+}
