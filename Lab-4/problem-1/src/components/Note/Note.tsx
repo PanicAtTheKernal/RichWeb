@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import colours from '../colours';
-
+import colours from '../../colours';
+import "./Note.css"
 
 type NoteProps = {
     text: string,
@@ -21,10 +21,10 @@ function Note(props: NoteProps) {
     }, [props])
 
     return (
-        <div className="note" id="note" style={{backgroundColor: colour}}>
-            <div className="noteHeader">
-                <button className="Edit">Edit</button>
-                <button className="Delete">Delete</button>
+        <div className="Note" id="note" style={{backgroundColor: colour}}>
+            <div className="NoteHeader">
+                <button className="active">Edit</button>
+                <button className="danger">Delete</button>
             </div>
             <div>
                 {text}
