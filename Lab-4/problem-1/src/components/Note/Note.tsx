@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import colours from '../../colours';
 import "./Note.css"
+import { Subject } from 'rxjs';
+import { NoteRequest, NoteRequestType } from '../NoteArea';
 
 export type NoteProps = {
+    id: string,
     text: string,
     colour: string,
+    noteAreaSubject: Subject<NoteRequest>
 }
 
 function Note(props: NoteProps) {
@@ -24,7 +28,7 @@ function Note(props: NoteProps) {
         <div className="Note" id="note" style={{backgroundColor: colour}}>
             <div className="NoteHeader">
                 <button className="active">Edit</button>
-                <button className="danger">Delete</button>
+                <button className="danger" onClick={() => props.noteAreaSubject.next({type: NoteRequestType.Delete, key: props.id})}>Delete</button>
             </div>
             <div>
                 {text}
