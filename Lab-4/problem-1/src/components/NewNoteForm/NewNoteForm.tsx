@@ -19,15 +19,18 @@ function NewNoteForm(props: NewNoteFormProps) {
     }))
 
     const submitHandler = () => {
-        setOpen(false);
         console.log(text)
-        if (text === "") return;
+        if (text === "") {
+            return;
+        };
 
         props.itemObservable.next({
             key: crypto.randomUUID(),
             text: text,
             colour: "red"
         })
+        setOpen(false);
+        setText("")
     }
 
 
@@ -38,7 +41,7 @@ function NewNoteForm(props: NewNoteFormProps) {
                     <label htmlFor="noteContent" id="noteLabel" className='heading'><h2>Add note:</h2></label>
                     <button className='danger' onClick={() => setOpen(false)}><h3>X</h3></button>
                 </div>
-                <textarea id="noteContent" name="noteContent" rows={5} cols={40} onChange={(newText) => setText(newText.target.value)} required></textarea>
+                <textarea id="noteContent" name="noteContent" value={text} rows={5} cols={40} onChange={(newText) => setText(newText.target.value)} required></textarea>
                 <input id="noteEdit" name="noteEdit" type="hidden" value="false"/>
                 <input id="noteIndex" name="noteIndex" type="hidden" value="0"/>
                 <div id="colourSelection">
