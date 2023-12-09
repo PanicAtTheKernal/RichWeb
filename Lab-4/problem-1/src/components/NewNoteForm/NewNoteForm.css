@@ -5,18 +5,55 @@
 
 #noteFormDialog[open] {
     display: flex;
-    padding: 10px;
-    background-color: grey;
+    box-shadow: -10px 10px 6px grey;
+    background-color: brown;
     height: max-content;
     align-items: center;
     justify-content: center;
+    border-radius: 10px;
+}
+
+dialog {
+    border: 0px;
 }
 
 #noteForm {
-    height: fit-content;
-    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-#noteForm > * {
-    margin: 4px 0px;
+#FormHeader {
+    width: inherit;
+    display: flex;
+    justify-content: start;
+    padding: 10px 0px;;
+}
+
+.heading {
+    flex-grow: 3;
+}
+
+#FormHeader > button {
+    border: 3px solid white;
+    margin: 0px 10px;
+}
+
+#FormHeader > button:hover {
+    border: 3px solid hsl(354, 70%, 54%);
+    margin: 0px 10px;
+}
+
+#noteForm > button {
+    border: 3px solid white;
+    margin: 0px 10px;
+    color: white;
+}
+
+#noteForm > button:hover {
+    border: 3px solid hsl(216, 98%, 52%);
+}
+
+#noteForm > textarea {
+    border-radius: 10px;
 }

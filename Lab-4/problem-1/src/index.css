@@ -8,9 +8,9 @@ h1 {
   color: black;
 }
 
-h3 {
+h2, h3 {
   margin: 0;
-  color: black;
+  color: white;
 }
 
 #main {

@@ -6,7 +6,6 @@ export type NoteValues = {
     key: string,
     text: string,
     colour: string,
-    noteSubject: Subject<NoteRequest>
 }
 
 export enum NoteRequestType {
@@ -26,8 +25,8 @@ type NoteAreaProps = {
 function NoteArea(props: NoteAreaProps) {
     const noteSubject = useRef(new Subject<NoteRequest>())
     const [notes, setNotes] = useState<Array<NoteValues>>([
-        {key: crypto.randomUUID(), text: "Hello world!", colour: "red", noteSubject: noteSubject.current},
-        {key: crypto.randomUUID(), text: "Test note", colour: "blue", noteSubject: noteSubject.current} 
+        {key: crypto.randomUUID(), text: "Hello world!", colour: "red"},
+        {key: crypto.randomUUID(), text: "Test note", colour: "blue"} 
     ])
 
     // Function to handle delete note requests
@@ -42,12 +41,14 @@ function NoteArea(props: NoteAreaProps) {
 
     const newNoteSubscriber = useRef(props.newItemObservable.subscribe({
         next (newNote: NoteValues) {
-            setNotes((currentNotes) => {
-                return {
-                    ...currentNotes,
+            if (notes.find((note) => note.key === newNote.key)) {
+                return;
+            }
+
+            setNotes([
+                    ...notes,
                     newNote
-                }
-            })
+            ])
         }
     }))
 
