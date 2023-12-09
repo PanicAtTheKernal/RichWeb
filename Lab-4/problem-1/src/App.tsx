@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import Header from './components/Header';
 import NoteArea from './components/NoteArea';
+import Note from './components/Note';
+import { Subject } from 'rxjs';
 
 function App() {
+  const itemObservable = useRef(new Subject<React.JSX.Element>());
+
   return (
     <div className="App" id="main">
       <Header></Header>
-      <NoteArea></NoteArea>
+      <NoteArea newItemObservable={itemObservable.current}></NoteArea>
     </div>
   );
 }
