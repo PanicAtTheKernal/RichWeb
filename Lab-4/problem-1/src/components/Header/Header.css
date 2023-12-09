@@ -1,0 +1,30 @@
+#header {
+    background-color: hsl(0, 59%, 41%);
+    width: inherit;
+    display: flex;
+    justify-content: start;
+    padding: 10px 0px;;
+  }
+  
+#heading {
+    flex-grow: 3;
+}
+
+.AddButton {
+    background-color: hsl(0, 59%, 41%);
+    margin: 0px 10px;
+    border: 3px solid white;
+}
+
+.AddButton > h1 {
+    color: white;
+}
+
+.AddButton:hover {
+    border: 0px;
+    border: 3px solid hsl(216, 98%, 52%);
+}
+
+.AddButton:hover > h1 {
+    color: white;
+}

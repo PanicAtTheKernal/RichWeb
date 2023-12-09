@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import NoteArea from './components/NoteArea';
 import Note from './components/Note/Note';
 import { Subject } from 'rxjs';

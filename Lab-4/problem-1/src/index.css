@@ -1,16 +1,11 @@
 :root {
-  --note-width: 220px;
-  --note-height: 220px;
+  --note-width: 250px;
+  --note-height: 250px;
 }
 
 h1 {
   margin: 0px 1rem;
   color: black;
-}
-
-button {
-  margin: 0px 1rem;
-  padding: 0px 1rem;
 }
 
 #main {
@@ -22,18 +17,6 @@ button {
   justify-content: center;
   text-align: start;
   font-family: sans-serif;
-}
-
-#header {
-  background-color: brown;
-  width: inherit;
-  display: flex;
-  justify-content: start;
-  padding: 10px 0px;;
-}
-
-#heading {
-  flex-grow: 3;
 }
 
 #noteFormDialog[open] {
@@ -84,6 +67,7 @@ button {
   border-radius: 5px;
   border: 0px;
   padding: 0.5rem;
+  font-family: sans-serif;
 }
 
 .danger:hover {
