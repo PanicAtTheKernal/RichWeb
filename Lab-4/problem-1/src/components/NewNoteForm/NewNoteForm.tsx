@@ -62,19 +62,24 @@ function NewNoteForm(props: NewNoteFormProps) {
     const fetchActivity = async () => {
         setText("")
         setOpen(false);
-        const result = await fetch("http://www.boredapi.com/api/activity/")
-        const json = await result.json()
-
-        const newKey = (editMode) ? key : crypto.randomUUID()
-        const randomColourIndex = Math.floor(Math.random() * colourName.length)
-        const newColour = (editMode) ? currentColour : colourName[randomColourIndex]
-
-        props.itemObservable.next({
-            key: newKey,
-            text: json["activity"],
-            colour: newColour
-        })
-        setText("")
+        try {
+            const result = await fetch("http://www.boredapi.com/api/activity/")
+            const json = await result.json()
+    
+            const newKey = (editMode) ? key : crypto.randomUUID()
+            const randomColourIndex = Math.floor(Math.random() * colourName.length)
+            const newColour = (editMode) ? currentColour : colourName[randomColourIndex]
+    
+            props.itemObservable.next({
+                key: newKey,
+                text: json["activity"],
+                colour: newColour
+            })
+            setText("")
+        } catch (error) {
+            setOpen(true)
+            setText("Failed to make suggestion")
+        }
     }
 
     return (
