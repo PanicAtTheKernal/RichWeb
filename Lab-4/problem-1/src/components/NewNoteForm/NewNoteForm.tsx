@@ -59,16 +59,28 @@ function NewNoteForm(props: NewNoteFormProps) {
         setText("")
     }
 
-    useEffect(() => {
+    const fetchActivity = async () => {
+        setText("")
+        setOpen(false);
+        const result = await fetch("http://www.boredapi.com/api/activity/")
+        const json = await result.json()
 
-    }, [])
+        const newKey = (editMode) ? key : crypto.randomUUID()
+
+        props.itemObservable.next({
+            key: newKey,
+            text: json["activity"],
+            colour: currentColour
+        })
+        setText("")
+    }
 
     return (
         <dialog id="noteFormDialog" open={open}>
             <form id="noteForm" name="noteForm" method="dialog">
                 <div id="FormHeader">
                     <label htmlFor="noteContent" id="noteLabel" className='heading'><h2>Add note:</h2></label>
-                    <button className='danger' onClick={() => setOpen(false)}><h3>X</h3></button>
+                    <button className='danger formButton' onClick={() => setOpen(false)}><h3>X</h3></button>
                 </div>
                 <textarea id="noteContent" name="noteContent" value={text} rows={5} cols={40} onChange={(newText) => setText(newText.target.value)} placeholder="Enter note content" required></textarea>
                 <input id="noteEdit" name="noteEdit" type="hidden" value="false"/>
@@ -84,7 +96,10 @@ function NewNoteForm(props: NewNoteFormProps) {
                         })
                     }
                 </div>
-                <button id="submitButton" className='active' onClick={submitHandler}>Submit</button>
+                <div id='newNoteFormButtons'>
+                    <button id="submitButton" className='active formButton' onClick={submitHandler}>Submit</button>
+                    <button id="submitButton" className='active formButton' onClick={async () => { await fetchActivity()}}>Suggestion</button>
+                </div>
             </form>
         </dialog>
     );  

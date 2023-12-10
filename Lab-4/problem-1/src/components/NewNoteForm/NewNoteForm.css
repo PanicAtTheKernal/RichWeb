@@ -34,28 +34,34 @@ dialog {
     flex-grow: 3;
 }
 
-#FormHeader > button {
-    border: 3px solid white;
-    margin: 0px 10px;
-}
-
 #FormHeader > button:hover {
     border: 3px solid hsl(354, 70%, 54%);
     margin: 0px 10px;
 }
 
-#noteForm > button {
+.formButton:hover {
+    border: 3px solid hsl(216, 98%, 52%);
+}
+
+.formButton {
     border: 3px solid white;
     margin: 0px 10px;
     color: white;
 }
 
-#noteForm > button:hover {
-    border: 3px solid hsl(216, 98%, 52%);
-}
-
 #noteForm > textarea {
     border-radius: 10px;
+}
+
+#newNoteFormButtons {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 2px;
+    margin-bottom: 5px;
+}
+
+#newNoteFormButtons  > button {
+    flex-grow: 1;
 }
 
 #colourSelection {
