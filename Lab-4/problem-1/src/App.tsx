@@ -7,12 +7,13 @@ import NewNoteForm, { OpenFormRequest } from './components/NewNoteForm/NewNoteFo
 function App() {
   const itemObservable = useRef(new Subject<NoteValues>());
   const openFormSubject = useRef(new Subject<OpenFormRequest>());
+  const filterSubject = useRef(new Subject<string>());
 
   return (
     <div className="App" id="main">
       <NewNoteForm itemObservable={itemObservable.current} openFormSubject={openFormSubject.current}></NewNoteForm>
-      <Header openFormSubject={openFormSubject.current}></Header>
-      <NoteArea newItemObservable={itemObservable.current} openFormSubject={openFormSubject.current}></NoteArea>
+      <Header openFormSubject={openFormSubject.current} filterSubject={filterSubject.current}></Header>
+      <NoteArea newItemObservable={itemObservable.current} openFormSubject={openFormSubject.current} filterSubject={filterSubject.current}></NoteArea>
     </div>
   );
 }

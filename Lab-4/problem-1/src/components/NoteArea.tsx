@@ -23,6 +23,7 @@ export type NoteRequest = {
 type NoteAreaProps = {
     newItemObservable: Subject<NoteValues>
     openFormSubject: Subject<OpenFormRequest>
+    filterSubject: Subject<string>
 } 
 
 function NoteArea(props: NoteAreaProps) {
@@ -31,14 +32,20 @@ function NoteArea(props: NoteAreaProps) {
         {key: crypto.randomUUID(), text: "Hello world!", colour: "red", type: "education"},
         {key: crypto.randomUUID(), text: "Test note", colour: "blue", type: "education"} 
     ])
+    const [displayNote, setDisplayNote] = useState(notes);
 
     // Function to handle delete note requests
     const deleteSubscriber = useRef(noteSubject.current.pipe(
         filter((request: NoteRequest) => request.type === NoteRequestType.Delete)
         ).subscribe((request: NoteRequest) => {
-            setNotes((currentNotes) => {
-                // Remove the note that mentioned in the id
-                return currentNotes.filter(note => note.key !== request.key)
+            const deteledNotes = notes.filter(note => note.key !== request.key)
+
+            setNotes(() => {
+                // Remove the note that was mentioned in the id
+                return deteledNotes
+            })
+            setDisplayNote(() => {
+                return deteledNotes
             })
     }))
 
@@ -55,25 +62,45 @@ function NoteArea(props: NoteAreaProps) {
         next (newNote: NoteValues) {
             if (notes.find((note) => note.key === newNote.key)) {
                 // Loop through the notes and replace the old note with the new note
-                setNotes(notes.map((note) => {
+                const newNotes = notes.map((note) => {
                     if (note.key === newNote.key) {
                         return newNote;
                     }
                     return note;
-                }));
+                })
+
+                setNotes(newNotes);
+                setDisplayNote(newNotes);
                 return;
             }
 
-            setNotes([
-                    ...notes,
-                    newNote
-            ])
+            const expandedNotes = [
+                ...notes,
+                newNote
+            ]
+            setNotes(expandedNotes)
+            setDisplayNote(expandedNotes)
+        }
+    }))
+
+    const filterSubscriber = useRef(props.filterSubject.subscribe({
+        next (value) {
+            setDisplayNote(() => {
+                //Don't filter notes
+                if (value == "none") return notes;
+
+                return notes.filter((note) => {
+                    if (note.type == value) {
+                        return note;
+                    }
+                })
+            })
         }
     }))
 
     return (
         <div className="NoteArea" id="noteArea">
-            {notes.map((note) => {
+            {displayNote.map((note) => {
                 return <Note id={note.key} text={note.text} colour={note.colour} noteAreaSubject={noteSubject.current} key={note.key} type={note.type}></Note>
             })}
         </div>
