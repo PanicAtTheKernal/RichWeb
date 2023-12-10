@@ -18,9 +18,9 @@ function NewNoteForm(props: NewNoteFormProps) {
     const [open, setOpen] = useState<boolean>(false);
     const [text, setText] = useState<string>("");
     const [key, setKey] = useState<string>("");
-    const [type, setType] = useState<string>("education");
+    const [currentType, setCurrentType] = useState<string>("education");
     const [editMode, setEditMode] = useState<boolean>(true);
-    const [currentColour, setCurrentColour] = useState<string>("orange");
+    const [currentColour, setCurrentColour] = useState<string>("red");
     const [colourName, setColourName] = useState<Array<string>>(() => {
         let coloursNames: string[] = []
         colours.forEach((value, key) => {
@@ -32,10 +32,12 @@ function NewNoteForm(props: NewNoteFormProps) {
     const openFormSubscriber = useRef(props.openFormSubject.subscribe({
         next(request: OpenFormRequest) {
             setOpen(request.open);
+            //Setup the form for editing
             if( request.request != null) {
                 setEditMode(true)
                 setText(request.request.text)
                 setCurrentColour(request.request.colour)
+                setCurrentType(request.request.type)
                 setKey(request.request.key)
             } else {
                 setEditMode(false)
@@ -55,7 +57,7 @@ function NewNoteForm(props: NewNoteFormProps) {
             key: newKey,
             text: text,
             colour: currentColour,
-            type: "education"
+            type: currentType
         })
         setOpen(false);
         setText("")
@@ -102,6 +104,17 @@ function NewNoteForm(props: NewNoteFormProps) {
                             return <div id="colourSelectionField">
                                 <input type="radio" id={colour} name="noteColour" value={colour} checked={currentColour === colour} onChange={(newColour) => {setCurrentColour(newColour.target.value)}}></input>
                                 <label htmlFor={colour} style={{color: "white"}}>{colour}</label>
+                            </div>
+                        })
+                    }
+                </div>
+                <div id="colourSelection">
+                    <label><h3>Select type:</h3></label>
+                    {
+                        types.map((type, index) => {
+                            return <div id="noteTypeField">
+                                <input type="radio" id={type} name="noteType" value={type} checked={currentType === type} onChange={(newType) => {setCurrentType(newType.target.value)}}></input>
+                                <label htmlFor={type} style={{color: "white"}}>{type}</label>
                             </div>
                         })
                     }

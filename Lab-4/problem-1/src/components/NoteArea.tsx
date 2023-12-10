@@ -28,6 +28,7 @@ type NoteAreaProps = {
 
 function NoteArea(props: NoteAreaProps) {
     const noteSubject = useRef(new Subject<NoteRequest>())
+    const [currentFilter, setFilter] = useState("none");
     const [notes, setNotes] = useState<Array<NoteValues>>([
         {key: crypto.randomUUID(), text: "Hello world!", colour: "red", type: "education"},
         {key: crypto.randomUUID(), text: "Test note", colour: "blue", type: "education"} 
@@ -44,9 +45,7 @@ function NoteArea(props: NoteAreaProps) {
                 // Remove the note that was mentioned in the id
                 return deteledNotes
             })
-            setDisplayNote(() => {
-                return deteledNotes
-            })
+            setDisplayNote(filterNotes(currentFilter, deteledNotes))
     }))
 
     const editSubscriber = useRef(
@@ -70,7 +69,7 @@ function NoteArea(props: NoteAreaProps) {
                 })
 
                 setNotes(newNotes);
-                setDisplayNote(newNotes);
+                setDisplayNote(filterNotes(currentFilter, newNotes))
                 return;
             }
 
@@ -79,22 +78,25 @@ function NoteArea(props: NoteAreaProps) {
                 newNote
             ]
             setNotes(expandedNotes)
-            setDisplayNote(expandedNotes)
+            setDisplayNote(filterNotes(currentFilter, expandedNotes))
         }
     }))
 
+    const filterNotes = (value: string, notes: NoteValues[]) => {
+        //Don't filter notes
+        if (value == "none") return notes;
+
+        return notes.filter((note) => {
+            if (note.type == value) {
+                return note;
+            }
+        })
+    }
+
     const filterSubscriber = useRef(props.filterSubject.subscribe({
         next (value) {
-            setDisplayNote(() => {
-                //Don't filter notes
-                if (value == "none") return notes;
-
-                return notes.filter((note) => {
-                    if (note.type == value) {
-                        return note;
-                    }
-                })
-            })
+            setFilter(value);
+            setDisplayNote(filterNotes(value, notes));
         }
     }))
 
