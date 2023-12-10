@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect } from 'react';
 import Note, { NoteProps } from './Note/Note';
 import { Subject, filter } from 'rxjs';
+import { OpenFormRequest } from './NewNoteForm/NewNoteForm';
 
 export type NoteValues = {
     key: string,
@@ -20,6 +21,7 @@ export type NoteRequest = {
 
 type NoteAreaProps = {
     newItemObservable: Subject<NoteValues>
+    openFormSubject: Subject<OpenFormRequest>
 } 
 
 function NoteArea(props: NoteAreaProps) {
@@ -30,18 +32,34 @@ function NoteArea(props: NoteAreaProps) {
     ])
 
     // Function to handle delete note requests
-    noteSubject.current.pipe(
+    const deleteSubscriber = useRef(noteSubject.current.pipe(
         filter((request: NoteRequest) => request.type === NoteRequestType.Delete)
-    ).subscribe((request: NoteRequest) => {
-        setNotes((currentNotes) => {
-            // Remove the note that mentioned in the id
-            return currentNotes.filter(note => note.key !== request.key)
-        })
-    })
+        ).subscribe((request: NoteRequest) => {
+            setNotes((currentNotes) => {
+                // Remove the note that mentioned in the id
+                return currentNotes.filter(note => note.key !== request.key)
+            })
+    }))
+
+    const editSubscriber = useRef(
+        noteSubject.current.pipe(
+            filter((request: NoteRequest) => request.type === NoteRequestType.Edit)
+        ).subscribe((request: NoteRequest) => {
+            let requestNoteIndex = notes.findIndex(note => note.key === request.key); 
+            props.openFormSubject.next({open: true, request: notes[requestNoteIndex]})
+        })    
+    )
 
     const newNoteSubscriber = useRef(props.newItemObservable.subscribe({
         next (newNote: NoteValues) {
             if (notes.find((note) => note.key === newNote.key)) {
+                // Loop through the notes and replace the old note with the new note
+                setNotes(notes.map((note) => {
+                    if (note.key === newNote.key) {
+                        return newNote;
+                    }
+                    return note;
+                }));
                 return;
             }
 

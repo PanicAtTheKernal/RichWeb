@@ -4,15 +4,21 @@ import "./NewNoteForm.css"
 import { Subject } from 'rxjs';
 import colours from '../../colours';
 
+export type OpenFormRequest = {
+    open: boolean,
+    request: NoteValues | null
+}
+
 export type NewNoteFormProps = {
     itemObservable: Subject<NoteValues>
-    openFormSubject: Subject<boolean>
+    openFormSubject: Subject<OpenFormRequest>
 }
 
 function NewNoteForm(props: NewNoteFormProps) {
     const [open, setOpen] = useState<boolean>(false);
     const [text, setText] = useState<string>("");
-    const [checked, setChecked] = useState<boolean>(true);
+    const [key, setKey] = useState<string>("");
+    const [editMode, setEditMode] = useState<boolean>(true);
     const [currentColour, setCurrentColour] = useState<string>("orange");
     const [colourName, setColourName] = useState<Array<string>>(() => {
         let coloursNames: string[] = []
@@ -23,8 +29,16 @@ function NewNoteForm(props: NewNoteFormProps) {
     });
 
     const openFormSubscriber = useRef(props.openFormSubject.subscribe({
-        next(open: boolean) {
-            setOpen(open)
+        next(request: OpenFormRequest) {
+            setOpen(request.open);
+            if( request.request != null) {
+                setEditMode(true)
+                setText(request.request.text)
+                setCurrentColour(request.request.colour)
+                setKey(request.request.key)
+            } else {
+                setEditMode(false)
+            }
         }
     }))
 
@@ -34,8 +48,10 @@ function NewNoteForm(props: NewNoteFormProps) {
             return;
         };
 
+        const newKey = (editMode) ? key : crypto.randomUUID()
+
         props.itemObservable.next({
-            key: crypto.randomUUID(),
+            key: newKey,
             text: text,
             colour: currentColour
         })

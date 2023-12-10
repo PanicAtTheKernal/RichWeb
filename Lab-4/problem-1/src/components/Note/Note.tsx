@@ -27,7 +27,7 @@ function Note(props: NoteProps) {
     return (
         <div className="Note" id="note" style={{backgroundColor: colour}}>
             <div className="NoteHeader">
-                <button className="active">Edit</button>
+                <button className="active" onClick={() => props.noteAreaSubject.next({type: NoteRequestType.Edit, key: props.id})}>Edit</button>
                 <button className="danger" onClick={() => props.noteAreaSubject.next({type: NoteRequestType.Delete, key: props.id})}>Delete</button>
             </div>
             <div>
