@@ -66,11 +66,13 @@ function NewNoteForm(props: NewNoteFormProps) {
         const json = await result.json()
 
         const newKey = (editMode) ? key : crypto.randomUUID()
+        const randomColourIndex = Math.floor(Math.random() * colourName.length)
+        const newColour = (editMode) ? currentColour : colourName[randomColourIndex]
 
         props.itemObservable.next({
             key: newKey,
             text: json["activity"],
-            colour: currentColour
+            colour: newColour
         })
         setText("")
     }
