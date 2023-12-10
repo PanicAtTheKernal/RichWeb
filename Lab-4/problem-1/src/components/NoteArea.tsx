@@ -7,6 +7,7 @@ export type NoteValues = {
     key: string,
     text: string,
     colour: string,
+    type: string,
 }
 
 export enum NoteRequestType {
@@ -27,8 +28,8 @@ type NoteAreaProps = {
 function NoteArea(props: NoteAreaProps) {
     const noteSubject = useRef(new Subject<NoteRequest>())
     const [notes, setNotes] = useState<Array<NoteValues>>([
-        {key: crypto.randomUUID(), text: "Hello world!", colour: "red"},
-        {key: crypto.randomUUID(), text: "Test note", colour: "blue"} 
+        {key: crypto.randomUUID(), text: "Hello world!", colour: "red", type: "education"},
+        {key: crypto.randomUUID(), text: "Test note", colour: "blue", type: "education"} 
     ])
 
     // Function to handle delete note requests
@@ -73,7 +74,7 @@ function NoteArea(props: NoteAreaProps) {
     return (
         <div className="NoteArea" id="noteArea">
             {notes.map((note) => {
-                return <Note id={note.key} text={note.text} colour={note.colour} noteAreaSubject={noteSubject.current} key={note.key}></Note>
+                return <Note id={note.key} text={note.text} colour={note.colour} noteAreaSubject={noteSubject.current} key={note.key} type={note.type}></Note>
             })}
         </div>
     );

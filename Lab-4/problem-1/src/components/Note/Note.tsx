@@ -8,6 +8,7 @@ export type NoteProps = {
     id: string,
     text: string,
     colour: string,
+    type: string,
     noteAreaSubject: Subject<NoteRequest>
 }
 
@@ -30,6 +31,7 @@ function Note(props: NoteProps) {
                 <button className="active" onClick={() => props.noteAreaSubject.next({type: NoteRequestType.Edit, key: props.id})}>Edit</button>
                 <button className="danger" onClick={() => props.noteAreaSubject.next({type: NoteRequestType.Delete, key: props.id})}>Delete</button>
             </div>
+            <p>Type: {props.type}</p>
             <div>
                 {text}
             </div>

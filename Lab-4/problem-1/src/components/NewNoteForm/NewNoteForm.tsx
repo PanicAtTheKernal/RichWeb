@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect } from 'react';
 import { NoteValues } from '../NoteArea';
 import "./NewNoteForm.css"
 import { Subject } from 'rxjs';
-import colours from '../../colours';
+import colours, { types } from '../../colours';
 
 export type OpenFormRequest = {
     open: boolean,
@@ -18,6 +18,7 @@ function NewNoteForm(props: NewNoteFormProps) {
     const [open, setOpen] = useState<boolean>(false);
     const [text, setText] = useState<string>("");
     const [key, setKey] = useState<string>("");
+    const [type, setType] = useState<string>("education");
     const [editMode, setEditMode] = useState<boolean>(true);
     const [currentColour, setCurrentColour] = useState<string>("orange");
     const [colourName, setColourName] = useState<Array<string>>(() => {
@@ -53,7 +54,8 @@ function NewNoteForm(props: NewNoteFormProps) {
         props.itemObservable.next({
             key: newKey,
             text: text,
-            colour: currentColour
+            colour: currentColour,
+            type: "education"
         })
         setOpen(false);
         setText("")
@@ -73,7 +75,8 @@ function NewNoteForm(props: NewNoteFormProps) {
             props.itemObservable.next({
                 key: newKey,
                 text: json["activity"],
-                colour: newColour
+                colour: newColour,
+                type: json["type"]
             })
             setText("")
         } catch (error) {
