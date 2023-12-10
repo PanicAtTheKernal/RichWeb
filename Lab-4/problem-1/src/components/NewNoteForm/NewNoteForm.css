@@ -57,3 +57,8 @@ dialog {
 #noteForm > textarea {
     border-radius: 10px;
 }
+
+#colourSelection {
+    display: flex;
+    flex-direction: column;
+}
