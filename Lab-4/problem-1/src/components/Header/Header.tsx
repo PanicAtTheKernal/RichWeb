@@ -12,7 +12,7 @@ export type HeaderProps = {
 function Header(props: HeaderProps) {
     return (
         <div className="Header" id="header">
-            <h1 id="heading">Simple React Notes 📒</h1>
+            <h1 id="heading">Simple Notes 2.0 📒</h1>
             <label htmlFor="typeFilter" className='center'><h2>Filter type:</h2></label>
             <select name="typeFilter"  id="typeFilter" onChange={(value) => { props.filterSubject.next(value.target.value)}}>
                 <option value="none">none</option>
